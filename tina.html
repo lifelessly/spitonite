@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letter Replacer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h2 {
+            color: #4a90e2;
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            max-width: 600px;
+            height: 120px;
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 2px solid #4a90e2;
+            border-radius: 8px;
+            font-size: 18px;
+            transition: border-color 0.3s;
+        }
+        textarea:focus {
+            border-color: #357ABD;
+            outline: none;
+        }
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        button:hover {
+            background-color: #357ABD;
+            transform: scale(1.05);
+        }
+        button:active {
+            transform: scale(0.95);
+        }
+        #outputText {
+            background-color: #e6f7ff;
+            border: 2px solid #4a90e2;
+            border-radius: 8px;
+            color: #333;
+            padding: 15px;
+            width: 100%;
+            max-width: 600px;
+            height: 120px;
+            font-size: 18px;
+            resize: none;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Letter Replacer</h2>
+<textarea id="inputText" placeholder="Enter your text here..."></textarea><br>
+<button onclick="replaceLetters()">Replace Letters</button><br>
+<textarea id="outputText" placeholder="Modified text will appear here..." readonly></textarea>
+
+<script>
+    function replaceLetters() {
+        const input = document.getElementById('inputText').value;
+        let output = input;
+
+        // Define your letter replacements here
+        output = output.replace(/a/g, 'а');    // Replace 'a' with Cyrillic 'а'
+        output = output.replace(/c/g, 'с');    // Replace 'c' with Cyrillic 'с'
+        output = output.replace(/s/g, 'ѕ');    // Replace 's' with Cyrillic 'ѕ'
+        output = output.replace(/p/g, 'р');    // Replace 'p' with Cyrillic 'р'
+        output = output.replace(/i/g, 'ı̇');    // Replace 'i' with dotless 'ı' + combining dot above
+        output = output.replace(/o/g, 'о');    // Replace 'o' with Cyrillic 'о'
+        output = output.replace(/y/g, 'у');    // Replace 'y' with Cyrillic 'у'
+        output = output.replace(/h/g, 'һ');    // Replace 'h' with Cyrillic 'һ'
+        output = output.replace(/j/g, 'ȷ̇');    // Replace 'j' with 'ȷ' + combining dot above
+        output = output.replace(/f/g, 'ḟ');     // Replace 'f' with 'f' + combining dot above
+        output = output.replace(/ /g, ' ̇');    // Replace space with a space + combining dot above
+
+        document.getElementById('outputText').value = output;
+    }
+</script>
+
+</body>
+</html>
