@@ -3,192 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Bypasser</title>
+    <title>NoLimit Bypasses</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: black; /* Changed to pitch black */
-            color: #90EE90; /* Light green color for main text */
+            background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDB8fHVuaXZlcnNlJTIwY29zbWV0aWN8ZW58MHx8fHwxNjk5MjY1NzI0&ixlib=rb-1.2.1&q=80&w=1080') no-repeat center center fixed;
+            background-size: cover;
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 50px;
-            padding: 20px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-            opacity: 0; /* Start hidden for fade-in effect */
-            animation: fadeIn 1s forwards; /* Fade-in animation */
-        }
- 
-        @keyframes fadeIn {
-            to {
-                opacity: 1; /* Fade to visible */
-            }
-        }
- 
-        h1 {
-            color: #00BFFF; /* Title color */
-            animation: slideIn 1s forwards; /* Slide-in animation */
-            opacity: 0; /* Start hidden for fade-in effect */
-            animation-delay: 0.5s; /* Delay for title */
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
             text-align: center;
         }
- 
-        @keyframes slideIn {
-            from {
-                transform: translateY(-20px); /* Slide from above */
-                opacity: 0; /* Start hidden */
-            }
-            to {
-                transform: translateY(0); /* Slide to original position */
-                opacity: 1; /* Fade to visible */
-            }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            text-shadow: 0 0 10px #00BFFF, 0 0 20px #00BFFF;
         }
- 
-        #output {
-            color: #1E90FF; /* Color for output text */
-            margin-top: 20px;
+        textarea {
+            width: 80%;
+            height: 100px;
+            background-color: rgba(51, 51, 51, 0.8);
+            color: white;
+            border: none;
+            border-radius: 10px;
             padding: 10px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-            width: 100%;
-            max-width: 600px;
-            text-align: center; /* Center align output text */
-            backdrop-filter: blur(5px);
-            font-size: 18px; /* Increased font size for visibility */
+            font-size: 16px;
+            resize: none;
+            box-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+            transition: box-shadow 0.3s;
         }
- 
-        #inputText {
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            width: 300px;
-            margin: 10px 0; /* Adjusted margin */
-            background-color: white; /* Changed to white */
-            color: black; /* Changed text color to black for visibility */
+        textarea:focus {
+            box-shadow: 0 0 20px rgba(0, 191, 255, 1);
+            outline: none;
         }
- 
         button {
             background-color: #00BFFF;
             color: white;
             border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
             cursor: pointer;
-            margin-top: 10px; /* Added margin */
+            margin: 10px;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
         }
- 
         button:hover {
-            background-color: #1E90FF;
+            background-color: #008CBA;
+            transform: scale(1.05);
         }
- 
-        .footer {
-            margin-top: auto;
-            color: red;
-            font-size: 14px;
-            margin-bottom: 20px;
-            text-align: center; /* Center align footer text */
-        }
- 
-        .tab {
-            display: flex;
-            margin-bottom: 20px;
-        }
- 
-        .tab button {
-            background-color: #444;
-            color: white;
-            border: 1px solid #ccc;
+        #output {
+            width: 80%;
+            height: 100px;
+            background-color: rgba(34, 34, 34, 0.8);
+            color: lightgreen;
+            border: none;
+            border-radius: 10px;
             padding: 10px;
-            cursor: pointer;
-            margin-right: 5px;
-            border-radius: 5px 5px 0 0;
+            font-size: 16px;
+            resize: none;
+            overflow: auto;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
         }
- 
-        .tab button.active {
-            background-color: #00BFFF;
-        }
- 
-        .tab-content {
-            display: none;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid #ccc;
-            border-radius: 0 0 5px 5px;
-            padding: 10px;
-            width: 300px;
-            max-width: 100%;
-            text-align: center; /* Center align tab content */
-        }
- 
-        .tab-content.active {
-            display: block;
-        }
- 
-        .notification {
-            color: white;
+        #notification {
             margin-top: 10px;
-            opacity: 0; /* Start hidden */
-            transition: opacity 0.5s; /* Fade out effect */
+            font-size: 14px;
+            color: lightgreen;
         }
     </style>
 </head>
 <body>
-    <h1>Chat Bypasser</h1>
-    <div class="tab">
-        <button class="tablinks active" onclick="openTab(event, 'Custom')">Custom Input</button>
-    </div>
  
-    <div id="Custom" class="tab-content active">
-        <input type="text" id="inputText" placeholder="Type something..." />
-        <button onclick="replaceText()">Replace Text</button>
-        <div id="output"></div>
-        <div id="notification" class="notification">Sentence bypassed!</div>
-    </div>
- 
-    <div class="footer">Made by Delly</div>
+    <h1>NoLimit Bypasses</h1>
+    <textarea id="inputText" placeholder="Type your text here..."></textarea>
+    <button onclick="transformText()">Transform Text</button>
+    <textarea id="output" readonly></textarea>
+    <div id="notification"></div>
  
     <script>
-        function openTab(evt, tabName) {
-            const tabContents = document.querySelectorAll('.tab-content');
-            const tabLinks = document.querySelectorAll('.tablinks');
+        function transformText() {
+            const inputText = document.getElementById("inputText").value;
+            const transformations = {
+                'a': 'а',
+                'c': 'с',
+                'e': 'е',
+                'h': 'һ',
+                'i': 'ı̇',  // Replacement for 'i'
+                'u': 'น',
+                'p': 'р',
+                'j': 'ј',
+                'o': 'о',
+                'w': 'พ',  // Replacement for 'w'
+                's': 'ร'   // Replacement for 's'
+            };
  
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-            });
+            let transformedText = inputText;
+            for (const [original, replacement] of Object.entries(transformations)) {
+                transformedText = transformedText.replace(new RegExp(original, 'g'), replacement);
+            }
  
-            tabLinks.forEach(link => {
-                link.classList.remove('active');
-            });
+            // Replace single spaces with space + dot
+            transformedText = transformedText.replace(/ /g, ' ̇');
  
-            document.getElementById(tabName).classList.add('active');
-            evt.currentTarget.classList.add('active');
+            document.getElementById("output").value = transformedText;
+            copyToClipboard(transformedText);
+            document.getElementById("notification").innerText = "Output copied to clipboard!";
         }
  
-        function replaceText() {
-            const input = document.getElementById('inputText').value;
-            const transformedText = input
-                .replace(/F/g, 'ꜰ')  // Replace capital 'F' with ꜰ
-                .replace(/f/g, 'ḟ')   // Replace lowercase 'f' with ḟ
-                .replace(/a/g, 'а')   // Replace lowercase 'a' with а
-                .replace(/c/g, 'с')   // Replace lowercase 'c' with с
-                .replace(/e/g, 'е')   // Replace lowercase 'e' with е
-                .replace(/h/g, 'һ')   // Replace lowercase 'h' with һ
-                .replace(/i/g, 'ı̇̇')  // Replace lowercase 'i' with ı̇̇
-                .replace(/s/g, 'ѕ')   // Replace lowercase 's' with ѕ
-                .replace(/p/g, 'ṗ')   // Replace lowercase 'p' with ṗ
-                .replace(/j/g, 'ј')   // Replace lowercase 'j' with ј
-                .replace(/o/g, 'о')   // Replace lowercase 'o' with о
-                .replace(/ /g, '   ̇'); // Replace space with two spaces and a dot
- 
-            // Set plain text in output
-            document.getElementById('output').textContent = transformedText;
- 
-            // Show notification
-            const notification = document.getElementById('notification');
-            notification.style.opacity = 1; // Show notification
-            setTimeout(() => {
-                notification.style.opacity = 0; // Hide after 1 second
-            }, 1000);
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                console.log('Text copied to clipboard');
+            }).catch(err => {
+                console.error('Could not copy text: ', err);
+            });
         }
     </script>
+ 
 </body>
 </html>
