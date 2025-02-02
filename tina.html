@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NoLimit Bypasses</title>
+    <title>Text Transformer</title>
     <style>
         body {
-            background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDB8fHVuaXZlcnNlJTIwY29zbWV0aWN8ZW58MHx8fHwxNjk5MjY1NzI0&ixlib=rb-1.2.1&q=80&w=1080') no-repeat center center fixed;
-            background-size: cover;
+            background-color: #121212;
             color: #ffffff;
-            font-family: 'Roboto', sans-serif;
+            font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -18,100 +17,98 @@
             margin: 0;
             text-align: center;
         }
-        h1 {
-            margin-bottom: 20px;
-            font-size: 2.5em;
-            text-shadow: 0 0 10px #00BFFF, 0 0 20px #00BFFF;
-        }
         textarea {
             width: 80%;
             height: 100px;
-            background-color: rgba(51, 51, 51, 0.8);
-            color: white;
-            border: none;
-            border-radius: 10px;
+            margin-bottom: 20px;
             padding: 10px;
             font-size: 16px;
-            resize: none;
-            box-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
-            transition: box-shadow 0.3s;
-        }
-        textarea:focus {
-            box-shadow: 0 0 20px rgba(0, 191, 255, 1);
-            outline: none;
+            background-color: #1e1e1e;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
         button {
-            background-color: #00BFFF;
-            color: white;
-            border: none;
-            border-radius: 10px;
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-            margin: 10px;
-            transition: background-color 0.3s, transform 0.2s;
-            box-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+            background-color: #bb86fc;
+            color: #121212;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
         }
         button:hover {
-            background-color: #008CBA;
-            transform: scale(1.05);
+            background-color: #3700b3;
         }
         #output {
             width: 80%;
             height: 100px;
-            background-color: rgba(34, 34, 34, 0.8);
-            color: lightgreen;
-            border: none;
-            border-radius: 10px;
+            background-color: #1e1e1e;
+            margin-top: 20px;
             padding: 10px;
             font-size: 16px;
             resize: none;
             overflow: auto;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-        }
-        #notification {
-            margin-top: 10px;
-            font-size: 14px;
-            color: lightgreen;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
 <body>
  
-    <h1>NoLimit Bypasses</h1>
-    <textarea id="inputText" placeholder="Type your text here..."></textarea>
+    <h1>Text Transformer</h1>
+    <textarea id="inputText" placeholder="Enter your text here..."></textarea>
     <button onclick="transformText()">Transform Text</button>
     <textarea id="output" readonly></textarea>
-    <div id="notification"></div>
  
     <script>
         function transformText() {
             const inputText = document.getElementById("inputText").value;
-            const transformations = {
-                'a': 'а',
+ 
+            // Word replacements
+            const wordTransformations = {
+                'cock': 'coсk'         // Replace 'cock' with 'coсk'
+            };
+ 
+            // Letter transformations
+            const letterTransformations = {
                 'c': 'с',
-                'e': 'е',
-                'h': 'һ',
-                'i': 'ı̇',  // Replacement for 'i'
-                'u': 'น',
-                'p': 'р',
-                'j': 'ј',
+                'a': 'а',
                 'o': 'о',
-                'w': 'พ',  // Replacement for 'w'
-                's': 'ร'   // Replacement for 's'
+                'j': 'ј',
+                'p': 'р',
+                'l': 'ӏ',
+                'e': 'е',
+                'i': 'ı̇',             // Replace 'i' with 'ı̇'
+                'y': 'у',              // Replace 'y' with 'у'
             };
  
             let transformedText = inputText;
-            for (const [original, replacement] of Object.entries(transformations)) {
-                transformedText = transformedText.replace(new RegExp(original, 'g'), replacement);
+ 
+            // Apply word transformations
+            for (const [original, replacement] of Object.entries(wordTransformations)) {
+                const regex = new RegExp(original, 'gi'); // Case-insensitive global search
+                transformedText = transformedText.replace(regex, replacement);
             }
  
-            // Replace single spaces with space + dot
-            transformedText = transformedText.replace(/ /g, ' ̇');
+            // Apply letter transformations
+            for (const [original, replacement] of Object.entries(letterTransformations)) {
+                const regex = new RegExp(original, 'gi'); // Case-insensitive global search
+                transformedText = transformedText.replace(regex, replacement);
+            }
  
+            // Replace spaces with ' ̃' (space + ̃)
+            transformedText = transformedText.replace(/ /g, ' ̃');
+ 
+            // Display transformed text
             document.getElementById("output").value = transformedText;
+ 
+            // Copy to clipboard
             copyToClipboard(transformedText);
-            document.getElementById("notification").innerText = "Output copied to clipboard!";
         }
  
         function copyToClipboard(text) {
